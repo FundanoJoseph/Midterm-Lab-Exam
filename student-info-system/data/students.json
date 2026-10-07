@@ -1,0 +1,37 @@
+[
+  {
+    "student_id": "S001",
+    "name": "Juan Dela Cruz",
+    "age": 20,
+    "course": "BSIT",
+    "email": "juan.delacruz@example.com"
+  },
+  {
+    "student_id": "S002",
+    "name": "Maria Clara Santos",
+    "age": 19,
+    "course": "BSCS",
+    "email": "maria.santos@example.com"
+  },
+  {
+    "student_id": "S003",
+    "name": "Jose Rizal Mercado",
+    "age": 21,
+    "course": "BSIT",
+    "email": "jose.mercado@example.com"
+  },
+  {
+    "student_id": "S004",
+    "name": "Gabriela Silang",
+    "age": 22,
+    "course": "BSBA",
+    "email": "gab.silang@example.com"
+  },
+  {
+    "student_id": "S005",
+    "name": "Andres Bonifacio",
+    "age": 20,
+    "course": "BSIT",
+    "email": "andres.bonifacio@example.com"
+  }
+]
