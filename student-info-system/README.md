@@ -15,7 +15,7 @@ configuration management, logging, validation, search and CSV export.
 | 2 | View all student records | CRUD – Read |
 | 3 | Update student information (partial updates) | CRUD – Update |
 | 4 | Delete students (with confirmation) | CRUD – Delete |
-| 5 | JSON data persistence (atomic saves) | Data Persistence |
+| 5 | JSON data storage with atomic saves (XML export supported) | Data Persistence |
 | 6 | Clear interactive menu system | User Interface |
 | 7 | Modular code structure (models / services / utils) | Cloud Architecture |
 | 8 | External configuration file + env-var overrides | Configuration Management |
@@ -24,7 +24,7 @@ configuration management, logging, validation, search and CSV export.
 | 11 | Unit tests with pytest (9 tests) | Bonus |
 | 12 | Data validation (ID, name, age, course, email) | Bonus |
 | 13 | Search by ID, name, course or email | Bonus |
-| 14 | Data export to CSV | Bonus |
+| 14 | Data export to CSV **and XML** | Bonus + JSON/XML storage |
 | 15 | Advanced error recovery (corrupt data backup) | Bonus |
 | 16 | GitHub Actions CI workflow (`.github/workflows/ci.yml`) | GitHub Integration |
 
@@ -74,11 +74,27 @@ Edit `config/config.json`:
 Environment overrides (cloud-friendly): `SIS_DATA_FILE`, `SIS_LOG_LEVEL`.
 
 ## Sample Data Format
+Records are **stored** in JSON (`data/students.json`) and can be **exported**
+to CSV or XML (`data/exports/`):
+
 ```json
 [
   {"student_id": "S001", "name": "Juan Dela Cruz", "age": 20,
    "course": "BSIT", "email": "juan.delacruz@example.com"}
 ]
+```
+
+```xml
+<?xml version='1.0' encoding='utf-8'?>
+<students>
+  <student>
+    <student_id>S001</student_id>
+    <name>Juan Dela Cruz</name>
+    <age>20</age>
+    <course>BSIT</course>
+    <email>juan.delacruz@example.com</email>
+  </student>
+</students>
 ```
 
 ## Cloud-Ready Design
@@ -93,7 +109,7 @@ Environment overrides (cloud-friendly): `SIS_DATA_FILE`, `SIS_LOG_LEVEL`.
   `students.json.corrupt` and replaced with a fresh store instead of crashing
 
 ## Git Workflow
-- Work is committed on the feature branch `arena/3d68f5bf-midterm-lab-exam`
+- Work is committed on the feature branch `arena/8a623f42-midterm-lab-exam`
   with a logical, meaningful commit history (conventional-commit style:
   `feat:`, `fix:`, `test:`, `docs:`, `chore:`)
 - The branch is pushed to GitHub and merged into `main` through a
