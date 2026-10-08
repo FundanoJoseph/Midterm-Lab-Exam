@@ -4,6 +4,7 @@ import json
 import logging
 import os
 import tempfile
+import xml.etree.ElementTree as ET
 from typing import List, Optional
 
 from src.models.student import Student
@@ -125,6 +126,27 @@ class StudentService:
                 f, fieldnames=["student_id", "name", "age", "course", "email"])
             writer.writeheader()
             writer.writerows(s.to_dict() for s in self.students)
+        logger.info("Exported %d students to %s", len(self.students), path)
+        return path
+
+    def export_xml(self, export_dir: str, filename: Optional[str] = None) -> str:
+        """Export all records to XML and return the file path.
+
+        Complements the JSON data store so records can be consumed by
+        XML-based systems (the exam requires JSON/XML storage support).
+        """
+        os.makedirs(export_dir, exist_ok=True)
+        path = os.path.join(export_dir, filename or "students_export.xml")
+        root = ET.Element("students")
+        for s in self.students:
+            record = ET.SubElement(root, "student")
+            for key, value in s.to_dict().items():
+                child = ET.SubElement(record, key)
+                child.text = str(value)
+        tree = ET.ElementTree(root)
+        if hasattr(ET, "indent"):        # pretty-print on Python 3.9+
+            ET.indent(tree, space="  ")
+        tree.write(path, encoding="utf-8", xml_declaration=True)
         logger.info("Exported %d students to %s", len(self.students), path)
         return path
 
