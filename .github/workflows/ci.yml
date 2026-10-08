@@ -32,4 +32,4 @@ jobs:
 
       - name: Smoke-test the CLI menu
         run: |
-          printf '2\n5\njuan\n0\n' | python -m src.main
+          printf '2\n5\njuan\n6\n7\n0\n' | python -m src.main
