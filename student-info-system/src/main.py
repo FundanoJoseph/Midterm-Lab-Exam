@@ -18,6 +18,7 @@ MENU = """
 4. Delete student
 5. Search students
 6. Export to CSV
+7. Export to XML
 0. Exit
 """
 
@@ -73,6 +74,7 @@ def main() -> None:
         "4": lambda: delete_student(service),
         "5": lambda: print_students(service.search(input("Keyword: "))),
         "6": lambda: print(f"Exported to {service.export_csv(config['export_dir'])}"),
+        "7": lambda: print(f"Exported to {service.export_xml(config['export_dir'])}"),
     }
 
     while True:

@@ -72,3 +72,16 @@ def test_export_csv(service, tmp_path):
     add_sample(service)
     out = service.export_csv(str(tmp_path / "exports"))
     assert "S001" in open(out, encoding="utf-8").read()
+
+
+def test_export_xml(service, tmp_path):
+    add_sample(service)
+    out = service.export_xml(str(tmp_path / "exports"))
+    content = open(out, encoding="utf-8").read()
+    assert content.startswith("<?xml")
+    assert "<student>" in content and "S001" in content
+    # the exported file must be well-formed XML
+    import xml.etree.ElementTree as ET
+    root = ET.parse(out).getroot()
+    assert root.tag == "students"
+    assert root.find("student/student_id").text == "S001"
